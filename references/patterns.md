@@ -779,15 +779,31 @@ Examples:
 - the real takeaway
 - it is worth noting
 
+Also flag empty importance markers such as:
+
+- "This matters."
+- "This matters because..."
+- "Why this matters:"
+- "What matters here is..."
+- "The important thing is..."
+
+These constructions often tell the reader that something is important instead of stating the concrete consequence that makes it important.
+
 ### Decision test
 
 Present the relevant fact first.
 
 If its importance is not evident, explain the consequence.
 
+If "this matters" can be replaced by the actual consequence without losing meaning, prefer the consequence.
+
 ### Do not flag
 
 Explicit prioritization can be useful in instructions, warnings, executive summaries, or user-requested analysis.
+
+Do not ban every use of matters. A concrete use is fine:
+
+> Timing matters because the token expires after 60 seconds.
 
 ### Avoid
 
@@ -796,6 +812,14 @@ Explicit prioritization can be useful in instructions, warnings, executive summa
 ### Prefer
 
 > Administrators can revoke access immediately.
+
+### Avoid
+
+> This matters because the agent may continue after a failed action.
+
+### Prefer
+
+> A failed action may be returned to the model as another problem to solve, allowing the run to continue past the intended stopping point.
 
 ---
 
@@ -1100,6 +1124,8 @@ Examples:
 - we found...
 - I noticed...
 
+This includes invented reactions such as "this stayed with me" or "I kept coming back to this" when the source does not establish that the writer actually had that reaction.
+
 ### Decision test
 
 Identify whose experience is being described.
@@ -1300,13 +1326,30 @@ Examples:
 - consider what happens when...
 - think about it this way...
 
+Watch for manufactured personal-reflection framing such as:
+
+- "This stayed with me."
+- "That line stayed with me."
+- "I kept coming back to..."
+- "I found myself thinking about..."
+- "What struck me was..."
+- "I couldn't stop thinking about..."
+
+These phrases can manufacture a personal reaction instead of explaining what is notable about the material.
+
 ### Decision test
 
 State the model, comparison, or fact directly.
 
+Ask whether the personal reaction is genuine source material or whether it was introduced by the model to create intimacy or significance.
+
+If the reaction was not supplied by the writer, state the observation directly.
+
 ### Do not flag
 
 Reflective framing is useful in teaching when it genuinely helps introduce a difficult mental model.
+
+Do not flag genuine first-person reflection when the user is writing from personal experience and that reaction is part of the intended voice.
 
 ### Avoid
 

@@ -1,47 +1,149 @@
 # Cut the Slop
 
-Cut the Slop is an Agent Skill for writing and rewriting prose that avoids common LLM writing habits while preserving the original meaning, evidence, and voice.
+**Cut the Slop** is a portable Agent Skill for writing and rewriting prose that avoids recurring LLM writing habits while preserving meaning, evidence, terminology, and voice.
 
-It focuses on patterns that make otherwise competent writing feel generated: repeated rhetorical shapes, manufactured contrasts, unnecessary restatement, abstract filler, slogan-like endings, excessive symmetry, fake precision, and similar habits.
+It works with **ChatGPT, Claude Code, Cursor**, and other agents that support `SKILL.md`-based skills.
 
-It can work from existing text or guide a new draft from the start.
+The Skill can clean up an existing draft or guide a new one from the start.
+
+## Install
+
+### ChatGPT
+
+Download **`skill.zip`** from the latest GitHub Release.
+
+In ChatGPT:
+
+1. Open **Plugins** from the sidebar.
+2. Open **Skills**.
+3. Select **Create**.
+4. Choose **Upload from your computer**.
+5. Upload `skill.zip`.
+
+ChatGPT scans uploaded Skills before making them available.
+
+Once installed, use it through normal requests:
+
+```text
+Rewrite this so it sounds natural without changing the meaning.
+```
+
+```text
+Remove the formulaic AI-writing patterns from this section.
+```
+
+```text
+Keep my technical meaning and voice, but clean up the generated-sounding structure.
+```
+
+Skill availability and upload permissions depend on the user's ChatGPT account and workspace settings.
+
+### Claude Code
+
+Install globally:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/cut-the-slop.git ~/.claude/skills/cut-the-slop
+```
+
+Or install it for one project:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/cut-the-slop.git .claude/skills/cut-the-slop
+```
+
+Claude Code can load the Skill when it is relevant, or you can invoke it directly:
+
+```text
+/cut-the-slop
+```
+
+For example:
+
+```text
+/cut-the-slop rewrite this section without changing the technical meaning
+```
+
+### Cursor
+
+Install globally:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/cut-the-slop.git ~/.cursor/skills/cut-the-slop
+```
+
+Or install it for one project:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/cut-the-slop.git .cursor/skills/cut-the-slop
+```
+
+Cursor can select the Skill automatically when the request matches its description.
+
+You can also invoke it directly:
+
+```text
+/cut-the-slop
+```
+
+or attach it as context with:
+
+```text
+@cut-the-slop
+```
+
+### Use one install with Claude Code and Cursor
+
+Cursor can also discover compatible Skills stored in Claude Code's skill directories.
+
+If you use both tools, installing Cut the Slop here:
+
+```bash
+~/.claude/skills/cut-the-slop
+```
+
+can make the same Skill available to both Claude Code and Cursor.
 
 ## What it does
 
 Cut the Slop reviews writing at the sentence, paragraph, section, and document level.
 
-The current pattern library covers **45 recurring writing problems**. These include:
+The current taxonomy contains **45 pattern rules** covering recurring structural and stylistic problems found in generated prose.
 
-- manufactured contrast (`not X, but Y`, `X isn't the problem. Y is.`)
+Examples include:
+
+- manufactured contrasts (`not X, but Y`, `X isn't the problem. Y is.`)
 - negative parallelism (`not faster, not cheaper, just better`)
 - mirrored syntax (`X changes the model. Y changes the system.`)
-- tidy binaries that oversimplify the point (`either control the model or accept the risk`)
-- reflexive triads and tetrads (`fast, flexible, reliable`, `clarity, consistency, precision, control`)
-- artificial counting (`there are three reasons` when the material was not naturally organized into three)
-- fake structural precision (`the problem has four layers`, `this happens in exactly three stages`)
-- false ranges (`from startups to global enterprises`, `from simple tasks to complex systems`)
+- tidy binaries (`either control the model or accept the risk`)
+- reflexive triads and tetrads (`fast, flexible, and reliable`)
+- artificial counting (`there are three reasons` when the material was not naturally divided into three)
+- fake structural precision (`the problem has exactly four layers`)
+- false ranges (`from small startups to global enterprises`)
 - over-clean taxonomies that force messy material into neat categories
 - semantic restatement (`X happens. This means X is happening.`)
-- headings immediately repeated by the opening sentence (`## Context changes` followed by `Context changes during a run.`)
-- redundant qualification loops (`this does not necessarily mean...`, repeated several ways)
-- thematic keyword saturation (repeating `boundary`, `trust`, `control`, or another theme long after the point is clear)
-- synonym rotation (calling the same thing a `control`, `safeguard`, `guardrail`, and `enforcement mechanism` just to avoid repetition)
+- headings immediately repeated by the first sentence (`## Context changes` followed by `Context changes during a run.`)
+- redundant qualification loops (`this does not necessarily mean...` repeated several ways)
+- thematic keyword saturation (repeating `boundary`, `trust`, or `control` long after the term has done its job)
+- synonym rotation (`control`, `safeguard`, `guardrail`, `enforcement mechanism` for the same thing)
 - repeated sentence cadence (`The model adapts. The system responds. The loop continues.`)
 - repeated paragraph architecture (every paragraph following `claim → explanation → takeaway`)
-- section-level symmetry (every section having the same length, rhythm, opening, or conclusion)
-- brand-message overfitting (restating the same positioning claim in every section)
-- significance inflation (`this represents a fundamental shift`, `this changes everything`)
-- add-on analysis that contributes no new information (`this highlights the broader importance of...`)
-- instructions telling the reader what to value (`what is crucial to understand is...`)
-- totalizing statements (`everything depends on this`, `the entire system changes`)
+- repeated section architecture (each section having the same opening, length, and closing shape)
+- brand-message overfitting (restating the same product promise throughout the page)
+- significance inflation (`this represents a fundamental shift`)
+- empty importance markers (`this matters`, `why this matters`, `what matters here is`)
+- add-on analysis (`this highlights the broader importance of...`)
+- reader-value instruction (`what is crucial to understand is...`)
+- totalizing statements (`everything depends on this`)
 - pseudo-profound compression (`persistence is power until persistence becomes the problem`)
 - micro-manifesto language (`the future belongs to systems that...`)
 - inflated stakes (`this could redefine the future of AI`)
-- abstract noun stacks (`alignment, optimization, execution, governance, and control`)
-- unnecessary concept labels (`contextual persistence drift`, `execution authority gap`)
+- abstract noun stacks (`alignment, optimization, execution, governance`)
+- unnecessary concept labels (`contextual persistence drift`)
 - unnamed authorities (`experts agree`, `researchers have long warned`)
-- vague evidentiary claims (`research shows`, `studies suggest`) without an identified basis
+- vague evidence claims (`research shows`, `studies suggest`) without an identified basis
 - invented first-person experience (`we've seen this repeatedly in production`) when the source never established it
+- manufactured personal reflection (`this stayed with me`, `I kept coming back to this`, `what struck me was`) when the writer never supplied that reaction
 - unsupported absolutes (`agents will always find another route`)
 - fake numerical precision (`even a 1% failure rate becomes catastrophic`) when no number was supplied
 - generic openings (`in today's rapidly evolving AI landscape...`)
@@ -51,40 +153,76 @@ The current pattern library covers **45 recurring writing problems**. These incl
 - generic conclusions (`ultimately, understanding this is essential`)
 - quotable or mic-drop endings (`that is the real risk`, `and that changes everything`)
 - chat residue in finished prose (`sure`, `absolutely`, `here's a polished version`)
-- model-favored vocabulary clusters (`crucial`, `nuanced`, `robust`, `landscape`, `underscore`, `foster`)
+- model-favored vocabulary clusters (`crucial`, `nuanced`, `robust`, `landscape`, `underscore`)
 - inflated substitutes for simple verbs (`utilize` instead of `use`, `serves to demonstrate` instead of `shows`)
 - em-dash dependence (`the state changed—and that changed everything`)
-- unnecessary formatting (constant bolding, excessive headings, decorative lists)
+- unnecessary formatting (constant bolding, decorative headings, excessive lists)
 - fake casualness (`Yep, totally`, `super quick`, `here's the thing`)
-- pattern substitution, where removing one AI tell introduces another (replacing a triad with `not X but Y`, or replacing formal filler with forced slang)
+- pattern substitution (removing a triad and replacing it with `not X but Y`, or removing formal filler and replacing it with forced slang)
 
-The Skill does not treat these as banned constructions. A three-item list may be completely natural when there are actually three items. Technical writing may need repeated terminology. A real distinction may require contrast.
+These are diagnostic patterns, not banned constructions.
 
-The question is whether the structure is carrying information or merely making the prose sound polished.
+A real three-item list is fine when there are actually three items. Technical writing may need repeated terminology because changing the term would reduce precision. A genuine technical distinction may require contrast.
 
-Cut the Slop also checks across longer documents for problems that are easy to miss sentence by sentence: distant repetition, repeated examples, identical section shapes, recurring conclusions, vocabulary saturation, and paragraphs that keep making the same point in different words.
+The Skill asks whether the construction is helping the reader understand the material or merely giving ordinary prose a polished shape.
 
 ## The main idea
 
-A lot of "humanizer" prompts operate as word filters. They tell the model to avoid certain vocabulary, punctuation, or phrases.
+Many writing prompts focus on vocabulary.
 
-That catches some surface habits, but many of the strongest writing tells are structural.
+They ban words such as `delve`, `crucial`, or `landscape`, remove em dashes, and tell the model to use simpler language.
 
-For example:
+Those edits can help, but much of the generated feel comes from structure.
+
+Consider:
 
 > The tools did not change. The task may not have changed either. The state the model was generating from did.
 
-Changing a few words leaves the underlying three-part construction intact.
+Replacing individual words leaves the three-part construction intact.
 
-A better edit changes the structure:
+A better edit changes how the information is organized:
 
 > The model was generating from a different state while using the same tools, possibly on the same task.
 
-Cut the Slop treats that kind of restructuring as part of the edit.
+Cut the Slop looks for the structure that produced the problem.
+
+## Pattern substitution
+
+A rewrite can remove one obvious pattern and still fail.
+
+For example:
+
+> The tools did not change. The task may not have changed either. The state did.
+
+A superficial rewrite might become:
+
+> It was not the tools or the task that changed, but the state.
+
+The triad disappeared, but a manufactured `not X but Y` contrast replaced it.
+
+Cut the Slop checks the rewrite again after editing so one formulaic construction is not simply exchanged for another.
+
+## Information should move
+
+A common generated-writing problem is repetition disguised as explanation.
+
+For example:
+
+> The model operates from the current context. This means its behavior depends on the context it currently has.
+
+The second sentence adds almost nothing.
+
+A stronger continuation gives the reader something new:
+
+> A failed tool call changes that context, so the next generation can differ even when the original task stays the same.
+
+Each sentence should have a reason to exist.
+
+Deletion is allowed. A sentence that contributes nothing does not need a replacement.
 
 ## Source fidelity
 
-The Skill should not improve prose by inventing material.
+Cut the Slop should never improve prose by inventing material.
 
 Rewrites preserve:
 
@@ -93,30 +231,44 @@ Rewrites preserve:
 - attribution
 - technical distinctions
 - numbers and dates
-- the scope of the evidence
+- scope
+- established terminology
 - the writer's intended point
 
-It does not add invented quotations, experiences, statistics, examples, or supporting evidence.
+It does not invent quotations, statistics, personal experiences, supporting evidence, examples, or authorities.
 
-If the source says something *may* happen, the rewrite should not quietly turn that into something that *will* happen.
+If the source says something *may* happen, the rewrite should not quietly change it to something that *will* happen.
 
-## It is not an AI detector
+If the source says something *contributed to* an outcome, the rewrite should not turn that into *caused*.
 
-Cut the Slop does not produce an "AI score" and does not claim that text can be proven human-written from prose style alone.
+## Voice preservation
 
-Its rules are editorial.
+Cleaning up generated patterns should not flatten the writer.
 
-The useful question is whether a construction is repetitive, vague, over-engineered, unsupported, or poorly matched to the writer and genre.
+When human writing samples are available, Cut the Slop can use them to infer habits such as:
 
-That also means a flagged pattern is not automatically wrong. Parallel syntax, repetition, short sentences, technical terminology, and rhetorical devices can all belong in good writing.
+- sentence length
+- paragraph density
+- directness
+- contraction use
+- punctuation
+- vocabulary
+- parenthetical use
+- fragments
+- humor
+- formality
 
-The Skill keeps them when they are doing useful work.
+The Skill looks for recurring habits across the sample instead of copying distinctive phrases or exaggerating quirks.
+
+An occasional fragment, repeated word, unusual sentence, or uneven paragraph may belong to the writer's voice.
+
+The goal is not perfectly regular prose.
 
 ## Genre matters
 
-Natural writing depends on where the text will be used.
+Different writing needs different editing decisions.
 
-The Skill includes separate guidance for:
+Cut the Slop includes guidance for:
 
 - email
 - chat and direct messages
@@ -129,15 +281,82 @@ The Skill includes separate guidance for:
 - social posts
 - executive writing
 
-Technical documentation, for example, may need repeated terminology because consistency prevents ambiguity. A casual message can use fragments that would look strange in a report.
+Documentation may need exact terminology repeated several times.
 
-When the user supplies examples of their own writing, those samples take priority over generic style preferences.
+A direct message may naturally contain fragments.
 
-## How the Skill is organized
+An article can spend more time developing an argument.
+
+Product copy needs to avoid repeating the same positioning statement across every section.
+
+The genre changes the judgment. The underlying fidelity rules stay in place.
+
+## Long-form auditing
+
+Some problems only become visible after reading several sections together.
+
+For longer work, Cut the Slop can audit:
+
+- distant repetition
+- recurring examples
+- keyword saturation
+- repeated paragraph shapes
+- repeated section shapes
+- suspiciously even section lengths
+- recurring transition phrases
+- repeated contrast structures
+- recurring three-part constructions
+- identical section endings
+- conclusions that restate earlier conclusions
+- changes in certainty
+- terminology drift
+- claims that became stronger during rewriting
+
+This prevents a document from having individually acceptable paragraphs that all feel as though they came from the same template.
+
+## It is not an AI detector
+
+Cut the Slop does not produce an **AI score**.
+
+It does not claim that prose style can prove whether a human or a model wrote a passage.
+
+Human writers use many of the patterns in this library. Models can also produce excellent prose without them.
+
+The rules are editorial.
+
+They help identify repetition, weak progression, manufactured rhetoric, unsupported claims, and structures that make writing less natural or less precise.
+
+## Example
+
+Before:
+
+> None of that requires consciousness, sentience, or malice. It also does not make the behavior safe. If the generated action is effective and the harness has the authority to execute it, the result is real.
+
+After:
+
+> The resulting behavior can still be dangerous. If a generated action works and the harness has enough authority to carry it out, the effect is real whether or not the model is sentient or acting with anything like human intent.
+
+The edit removes a conspicuous three-item construction and lets the actual safety claim carry the paragraph.
+
+## Another example
+
+Before:
+
+> This matters. The final action is not the whole story. What is crucial to understand is that the surrounding context determines how the model behaves.
+
+After:
+
+> The final action may be difficult to explain without the context the model received before generating it.
+
+The rewrite removes the importance markers and states the useful point directly.
+
+## Project structure
 
 ```text
 cut-the-slop/
 ├── SKILL.md
+├── README.md
+├── LICENSE
 ├── agents/
 │   └── openai.yaml
 └── references/
@@ -151,79 +370,61 @@ cut-the-slop/
 
 The control plane.
 
-It defines the editing workflow, source-fidelity rules, loading order, output behavior, and the references the agent should consult.
+It defines the workflow, source-fidelity rules, reference-loading order, rewrite behavior, and output requirements.
 
 ### `references/patterns.md`
 
 The canonical pattern library.
 
-Each pattern has a stable rule ID such as `SL-001`, along with detection guidance, exceptions, decision tests, and examples.
+It contains the stable `SL-###` rule IDs, detection guidance, decision tests, exceptions, and short examples.
 
-This is the main reference used on every invocation.
+The Skill consults this file on every writing task.
 
 ### `references/genres.md`
 
-Adjusts editorial decisions to the type of writing being produced.
-
-It also defines how to use human writing samples without turning voice matching into phrase imitation.
+Contains genre-specific editorial guidance and voice-matching rules.
 
 ### `references/examples.md`
 
-Contains difficult before-and-after cases.
-
-Use it when several patterns interact or when a rewrite is technically correct but still sounds formulaic.
+Contains harder before-and-after cases for situations where several patterns interact or the first rewrite still feels formulaic.
 
 ### `references/audit.md`
 
-A document-level review for longer work.
+Contains the long-form audit used for substantial documents.
 
-It looks for problems that are hard to spot one sentence at a time, including distant repetition, repeated section structure, recurring cadence, and conclusions that keep restating earlier material.
+### `agents/openai.yaml`
 
-## Example prompts
+Contains metadata used by OpenAI products.
 
-You can invoke the Skill with ordinary writing requests:
+The core portable Skill remains `SKILL.md` plus its supporting reference files, so Claude Code, Cursor, and other compatible agents do not need to interpret the OpenAI-specific metadata.
 
-```text
-Rewrite this so it sounds natural without changing the meaning.
-```
+## How loading works
 
-```text
-Remove the AI-writing patterns from this section.
-```
+The Skill uses progressive loading.
 
-```text
-Keep the technical meaning, but get rid of the polished LLM cadence.
-```
+`SKILL.md` stays relatively compact and acts as the control plane.
+
+`references/patterns.md` contains the detailed pattern system and is required for writing tasks.
+
+Other references are loaded when the task needs them:
 
 ```text
-Edit this article in my voice. Use the attached samples as the style reference.
+SKILL.md
+    │
+    ├── patterns.md   ← every invocation
+    │
+    ├── genres.md     ← genre or voice-sensitive writing
+    │
+    ├── examples.md   ← ambiguous or difficult rewrites
+    │
+    └── audit.md      ← substantial or multi-section documents
 ```
 
-```text
-Review this draft for repeated claims, fake contrasts, abstract filler, and over-engineered structure.
-```
-
-```text
-Write this section from my notes and avoid formulaic AI prose from the start.
-```
-
-The Skill is designed to return the finished writing rather than narrating every rule it applied, unless the user asks for an audit or explanation.
-
-## Example
-
-Before:
-
-> None of that requires consciousness, sentience, or malice. It also does not make the behavior safe. If the generated action is effective and the harness has the authority to execute it, the result is real.
-
-After:
-
-> The resulting behavior can still be dangerous. If a generated action works and the harness has enough authority to carry it out, the effect is real whether or not the model is sentient or acting with anything like human intent.
-
-The edit removes the conspicuous three-item construction and makes the actual safety claim carry the paragraph.
+This keeps the Skill from putting its entire rule library into context when only part of it is needed.
 
 ## Pattern IDs
 
-The pattern library uses stable IDs so the same taxonomy can later support other tools.
+Rules have stable IDs so the same taxonomy can later be used by editors, linters, evaluations, and other tooling.
 
 Examples:
 
@@ -232,75 +433,131 @@ SL-001  Manufactured contrast
 SL-005  Reflexive triad/tetrad
 SL-010  Semantic restatement
 SL-017  Section-level symmetry
+SL-021  Reader-value instruction
 SL-026  Abstract noun stack
+SL-030  Invented first-person experience
 SL-031  Unsupported absolute
 SL-035  Rhetorical question + immediate answer
+SL-036  Reflective framing
 SL-038  Quotable/mic-drop ending
 SL-042  Em-dash dependence
 SL-045  Pattern substitution
 ```
 
-The IDs make it possible to build a linter or editor around the same rule system without maintaining a separate taxonomy.
+## Example prompts
 
-## Using it as a ChatGPT Skill
+Rewrite existing prose:
 
-Package the Skill directory as `skill.zip` using the standard Skill packaging tooling, then add the archive through your ChatGPT Skills library.
+```text
+Rewrite this so it sounds natural without changing the meaning.
+```
 
-The packaged Skill should contain `SKILL.md`, `agents/openai.yaml`, and the files under `references/`.
+```text
+Remove the formulaic AI-writing patterns from this section.
+```
 
-No external service or connector is required for the core writing workflow.
+```text
+Keep the technical content intact, but fix the generated-sounding structure.
+```
+
+Match a supplied voice:
+
+```text
+Edit this article in my voice. Use the attached samples as the style reference.
+```
+
+Audit a longer draft:
+
+```text
+Review this for repeated claims, fake contrasts, abstract filler, repeated section structure, and rhetorical endings.
+```
+
+Draft from source material:
+
+```text
+Write this section from my notes. Preserve the evidence and avoid formulaic AI prose from the start.
+```
+
+Ask for an explanation:
+
+```text
+Show me which Cut the Slop rules this paragraph is triggering and why.
+```
+
+By default, the Skill should return the finished writing rather than narrating its editing process.
 
 ## Design principles
 
-**Meaning comes first.**  
-A smoother sentence is not an improvement if it changes the claim.
+### Preserve the claim
 
-**Fix the structure that caused the problem.**  
-Replacing a suspicious word while preserving the same rhetorical template usually does very little.
+A cleaner sentence is worse if it changes the evidence.
 
-**Do not manufacture irregularity.**  
-Random fragments, slang, typos, and awkward punctuation are not substitutes for natural prose.
+### Fix the underlying structure
 
-**Keep legitimate repetition.**  
-Technical terms, commands, names, and other precision-sensitive language should stay stable when consistency helps the reader.
+Changing a suspicious word rarely helps when the sentence architecture is the actual problem.
 
-**Stop editing when the prose works.**  
-Repeated rewriting can flatten a writer's voice just as easily as under-editing can leave formulaic patterns behind.
+### Do not manufacture humanity
+
+Random slang, fragments, typos, contractions, or awkward punctuation do not make writing more human.
+
+### Keep legitimate repetition
+
+Technical terms, commands, product names, legal language, and precision-sensitive wording should remain stable when consistency helps the reader.
+
+### Let paragraph shapes vary naturally
+
+Do not make every paragraph the same length or force each one through the same claim-explanation-takeaway structure.
+
+### Stop when the writing works
+
+Repeated editing can strip out useful voice and specificity.
+
+## Distribution
+
+The GitHub repository contains the editable source.
+
+For **ChatGPT**, publish the packaged `skill.zip` as a GitHub Release asset.
+
+For **Claude Code** and **Cursor**, users can clone or copy the repository directly into their supported Skill directory.
+
+This keeps one canonical rule set across platforms.
 
 ## Planned tooling
 
-The rule IDs are intentionally reusable outside the Skill.
+The stable rule IDs also make it possible to build tooling around the same taxonomy.
 
-Possible additions include:
+Potential additions include:
 
 - a local prose linter
-- editor diagnostics tied to individual rule IDs
+- editor diagnostics tied to `SL-###` rules
 - document-level repetition checks
 - optional before-and-after explanations
 - configurable rule severity
-- support for personal writing samples
-- evaluation fixtures for testing rewrites across models
+- personal voice profiles
+- evaluation fixtures for comparing rewrites across models
+- a desktop editor using the same rule library
 
-The Skill remains useful without those tools.
+The Agent Skill does not depend on those tools.
 
 ## Contributing
 
-Pattern additions should describe a recognizable writing failure rather than a single disliked phrase.
+New patterns should describe a repeatable writing failure rather than a single disliked phrase.
 
-A useful rule should explain:
+A useful rule should document:
 
 - what to detect
-- why the construction may be a problem
-- when it should remain untouched
-- how to test whether a rewrite is actually better
-- examples of weaker and stronger versions
+- the decision test
+- legitimate exceptions
+- what makes the construction weak
+- what kind of edit usually fixes it
+- examples showing the distinction
 
-New rules should receive stable `SL-###` identifiers.
+Do not create a new rule when an existing rule can be expanded cleanly.
 
-Examples should preserve the underlying meaning and should not rely on intentionally bad grammar to make the preferred version look better.
+Examples should preserve the original meaning and should not make the preferred rewrite look better by intentionally damaging the source version.
 
 ## License
 
-Licensed under the Apache License 2.0.
+Apache License 2.0.
 
-See `LICENSE` for the full license text.
+See `LICENSE` for the complete license text.

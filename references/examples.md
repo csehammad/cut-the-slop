@@ -322,6 +322,18 @@ Prefer:
 
 Keep consequences at the scale supported by the source.
 
+### Example: "this matters"
+
+Avoid:
+
+> This matters because the task is still unresolved.
+
+Prefer:
+
+> Because the task remains unresolved, the harness may invoke the model again after the failure.
+
+Do not announce importance when the consequence itself can show why the point matters.
+
 ---
 
 ## Handle attribution and evidence carefully
@@ -447,6 +459,20 @@ Avoid:
 > It is worth taking a moment to consider what this means.
 
 Delete it and state what it means.
+
+### Example: manufactured personal reflection
+
+Avoid:
+
+> That idea stayed with me.
+
+Prefer:
+
+> The important part is that the restriction was still being interpreted by the model on each call.
+
+Better still, state the specific consequence when one is available instead of announcing a reaction to it.
+
+If the writer genuinely supplied the personal reaction, preserve it.
 
 ### Example: generic conclusion
 
