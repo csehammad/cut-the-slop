@@ -350,6 +350,14 @@ After:
 
 The rewrite removes the importance markers and states the useful point directly.
 
+## Full sample
+
+The examples above are single paragraphs. `Samples/` applies the same kind of rewrite to a complete essay about technology in education.
+
+`Samples/before-cuttheslop.md` is the generated draft.
+
+`Samples/after-cuttheslop.md` keeps the subject and the concrete claims. The generic opening, inflated significance, manufactured contrasts, and restated conclusion are gone.
+
 ## Project structure
 
 ```text
@@ -359,11 +367,14 @@ cut-the-slop/
 ├── LICENSE
 ├── agents/
 │   └── openai.yaml
-└── references/
-    ├── patterns.md
-    ├── genres.md
-    ├── examples.md
-    └── audit.md
+├── references/
+│   ├── patterns.md
+│   ├── genres.md
+│   ├── examples.md
+│   └── audit.md
+└── Samples/
+    ├── before-cuttheslop.md
+    └── after-cuttheslop.md
 ```
 
 ### `SKILL.md`
@@ -397,6 +408,12 @@ Contains the long-form audit used for substantial documents.
 Contains metadata used by OpenAI products.
 
 The core portable Skill remains `SKILL.md` plus its supporting reference files, so Claude Code, Cursor, and other compatible agents do not need to interpret the OpenAI-specific metadata.
+
+### `Samples/`
+
+A full before-and-after essay.
+
+`before-cuttheslop.md` is the generated draft. `after-cuttheslop.md` is the rewrite. These files are examples for readers. The Skill does not load them.
 
 ## How loading works
 
